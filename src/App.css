@@ -1,0 +1,779 @@
+		
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #f3f4f6;
+}
+
+.app-container {
+display: flex;
+min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+width: 250px;
+background: white;
+padding: 20px;
+box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+}
+
+.sidebar h1 {
+font-size: 20px;
+margin-bottom: 20px;
+}
+
+.sidebar ul {
+list-style: none;
+padding: 0;
+}
+
+.sidebar ul li {
+margin: 12px 0;
+}
+
+.sidebar ul li a {
+text-decoration: none;
+color: black;
+}
+
+.sidebar ul li a.active {
+font-weight: bold;
+color: red;
+}
+
+.sidebar ul li a:hover {
+background: #f3f4f6;
+color: red;
+}
+/* Topbar */
+.topbar {
+background: white;
+padding: 15px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.topbar input {
+padding: 6px 10px;
+border: 1px solid #ddd;
+border-radius: 6px;
+}
+
+/* Main */
+.main {
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+
+.content {
+padding: 20px;
+}
+
+/* Cards */
+.cards {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+margin-bottom: 20px;
+}
+
+.card {
+background: white;
+padding: 16px;
+border-radius: 10px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.card-subtitle {
+margin-top: 6px;
+font-size: 13px;
+color: #777;
+}
+
+	/* ===== Order Card Styling ===== */
+.order-card {
+background: white;
+padding: 16px;
+border-radius: 10px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+margin-bottom: 16px;
+transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.order-card:hover {
+background: #f9fafb;
+transform: translateY(-2px);
+}
+
+/* Top row (title + big total/status) */
+.order-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin-bottom: 8px;
+}
+
+/* Generic row (items, breakdown) */
+.order-row {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin: 6px 0;
+}
+
+/* Left + right columns */
+.order-left {
+flex: 1;
+}
+
+.order-right {
+text-align: right;
+min-width: 160px;
+}
+
+/* Divider full width */
+.divider {
+border: none;
+border-top: 1px solid #e5e7eb;
+margin: 12px 0;
+width: 100%;
+}
+
+/* Title */
+.order-left h4 {
+color: #111;
+font-weight: 600;
+margin-bottom: 4px;
+}
+
+/* Grey text */
+.muted {
+color: #6b7280;
+font-size: 14px;
+margin: 2px 0;
+}
+
+/* Black breakdown total row */
+.total-label,
+.total-amount {
+color: #111;
+font-weight: 500;
+margin: 2px 0;
+}
+
+/* Big red total */
+.order-price {
+color: #e11d48;
+font-size: 18px;
+font-weight: 700;
+margin-bottom: 4px;
+}
+
+/* Status badge */
+.order-status {
+display: inline-block;
+padding: 6px 12px;
+border-radius: 20px;
+font-size: 13px;
+font-weight: 500;
+margin-top: 2px;
+color: #fff;
+}
+
+.order-status.completed {
+background: red;
+}
+
+.order-status.pending {
+background: green;
+}
+
+.filter-buttons {
+margin: 20px 0;
+}
+	
+
+.filter-btn {
+border: none;
+background: #eee;
+color: #333;
+padding: 6px 14px;
+margin-right: 10px;
+border-radius: 20px;
+cursor: pointer;
+font-size: 14px;
+transition: 0.2s;
+}
+
+.filter-btn:hover {
+background: #ddd;
+}
+
+.filter-btn.active {
+background: red;
+color: white;
+}
+
+.filter-btn.active {
+background: red;
+color: white;
+}
+
+/* ---------------- Page Background ---------------- */
+.settings-page {
+background: #f9fafb;
+min-height: 100vh;
+padding: 32px;
+}
+
+/* ---------------- Tabs Card (top pill) ---------------- */
+.settings-tabs-card {
+background: #fff;
+border-radius: 50px; /* pill shape */
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+margin-bottom: 16px;
+padding: 12px 24px;
+}
+
+.settings-tabs {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.tab-button {
+background: none;
+border: none;
+font-size: 13px; /* small */
+font-weight: 500;
+color: #6b7280; /* grey */
+cursor: pointer;
+flex: 1;
+text-align: center;
+transition: color 0.2s ease;
+}
+
+.tab-button:hover {
+color: #111827;
+}
+
+.tab-button.active {
+color: #000;
+font-weight: 600;
+}
+
+/* ---------------- Content Card ---------------- */
+.settings-card {
+background: #fff;
+border-radius: 12px;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+padding: 16px; /* compact */
+}
+
+/* ---------------- Form Styling ---------------- */
+.form-title {
+font-size: 14px;
+font-weight: 600;
+margin-bottom: 12px;
+color: #111827;
+}
+
+.settings-form {
+display: grid;
+grid-template-columns: 1fr 1fr; /* 2 columns */
+column-gap: 24px; /* spacing between left & right */
+row-gap: 14px; /* vertical spacing */
+}
+
+/* Fields that should only sit in left column */
+.settings-form .left-only {
+grid-column: 1 / 2;
+}
+
+.settings-form label {
+display: block;
+font-size: 12px;
+font-weight: 600;
+margin-bottom: 6px;
+color: #374151;
+}
+
+.settings-form input {
+width: 100%;
+box-sizing: border-box;
+padding: 8px 12px;
+border: none;
+outline: none;
+border-radius: 10px;
+background: #f3f4f6; /* light grey fill */
+font-size: 13px;
+color: #111827;
+transition: background .15s ease, box-shadow .15s ease;
+}
+
+.settings-form input:hover {
+background: #f5f6f7;
+}
+
+.settings-form input:focus {
+background: #ffffff;
+box-shadow: inset 0 0 0 2px rgba(0,0,0,0.10);
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+.settings-form {
+grid-template-columns: 1fr; /* stack everything on mobile */
+}
+
+.settings-form .left-only {
+grid-column: 1 / -1; /* make left-only fields full width on small screens */
+}
+}
+
+	
+.form-subtext {
+font-size: 11px; /* tiny */
+color: #9ca3af; /* lighter grey */
+margin-bottom: 16px;
+line-height: 1.4; /* keeps it readable */
+}
+
+.form-header {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 6px;
+}
+
+.form-icon {
+font-size: 18px;
+color: #111827; /* matches heading */
+}
+
+* ====== Page Wrapper (Restaurant + Account) ====== */
+.account-tab,
+.restaurant-tab {
+max-width: 600px; /* keeps page tinier */
+margin: 0 auto; /* center content */
+padding: 16px;
+background: #fff;
+border-radius: 8px;
+}
+
+/* ====== Section Header ====== */
+.form-header {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 4px;
+}
+
+.form-icon {
+font-size: 18px;
+color: #111827;
+}
+
+.form-title {
+font-size: 14px;
+font-weight: 600;
+color: #111827;
+}
+
+.form-subtext {
+font-size: 11px;
+color: #9ca3af; /* light grey */
+margin-bottom: 14px;
+line-height: 1.4;
+}
+
+/* ====== Form Grid ====== */
+.settings-form {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 14px 24px; /* row-gap then col-gap */
+}
+
+.settings-form label {
+display: block;
+font-size: 12px;
+font-weight: 500;
+color: #374151;
+margin-bottom: 4px;
+}
+
+.settings-form input {
+background: #f3f4f6; /* grey background */
+border: none; /* no line */
+border-radius: 6px;
+outline: none;
+padding: 6px 10px;
+font-size: 13px;
+}
+
+.settings-form input:focus {
+background: #fff; /* white when selected */
+box-shadow: 0 0 0 2px #3b82f6; /* focus ring */
+}
+
+.settings-form .left-only {
+grid-column: 1 / 2;
+}
+
+/* ====== Security Section ====== */
+.security-section {
+grid-column: 1 / -1; /* span full width */
+margin-top: 12px; /* reduced spacing */
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.security-title {
+font-size: 14px;
+font-weight: 600;
+color: #111827;
+margin-bottom: 2px;
+}
+
+/* ====== Buttons ====== */
+.save-btn,
+.change-btn {
+padding: 8px 16px;
+border-radius: 6px;
+font-size: 13px;
+font-weight: 500;
+cursor: pointer;
+width: fit-content;
+max-width: 100%;
+white-space: nowrap;
+border: none;
+}
+
+.save-btn {
+background: #ef4444; /* red */
+color: #fff;
+}
+
+.save-btn:hover {
+background: #dc2626;
+}
+
+.change-btn {
+display: flex;
+align-items: center;
+gap: 6px;
+background: #e5e7eb; /* light grey */
+color: #111827;
+}
+
+.change-btn .btn-icon {
+font-size: 16px;
+}
+
+/* ====== Notifications Tab ====== */
+.notifications-tab {
+max-width: 900px;
+max-height: 400px;
+margin: 0 10px;
+padding: 16px 0;
+background: #fff;
+border-radius: 8px;
+}
+
+/* Header */
+.notification-header {
+display: flex;
+align-items: center;
+gap: 8px;
+margin: 0 12px 6px;
+}
+
+.form-icon {
+font-size: 18px;
+color: #111827;
+}
+
+.notification-title {
+font-size: 18px;
+font-weight: 600;
+color: #111827;
+}
+
+.notification-subtext {
+font-size: 14px;
+color: #6b7280;
+margin: 0 12px 16px;
+line-height: 1.4;
+}
+
+/* Items */
+.notification-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin: 0 12px 12px; /* left inset + spacing */
+}
+
+.notification-text {
+flex: 1;
+text-align: left;
+padding-right: 12px;
+}
+
+.notification-item h4 {
+font-size: 16px;
+font-weight: 600;
+color: #111827;
+margin: 0 0 2px 0;
+}
+
+.notification-item p {
+font-size: 14px;
+color: #6b7280;
+margin: 0;
+line-height: 1.4;
+}
+
+/* Save Button */
+.save-notifications-btn {
+margin: 12px 12px 0;
+padding: 10px 18px;
+border-radius: 6px;
+font-size: 14px;
+font-weight: 500;
+cursor: pointer;
+background: #ef4444;
+color: #fff;
+border: none;
+}
+
+.save-notifications-btn:hover {
+background: #dc2626;
+}
+
+/* ====== Toggle Switch ====== */
+.switch {
+position: relative;
+display: inline-block;
+width: 46px; /* Figma size */
+height: 26px;
+}
+
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #d1d5db; /* gray when off */
+transition: 0.3s;
+border-radius: 34px;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 20px;
+width: 20px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: 0.3s;
+border-radius: 50%;
+}
+
+/* Checked State */
+.switch input:checked + .slider {
+background-color: #ef4444; /* red when on */
+}
+
+.switch input:checked + .slider:before {
+transform: translateX(20px);
+}
+
+	
+/* ===== Billing Tab ===== */
+.billing-tab {
+max-width: 920px;
+margin: 0 auto;
+padding: 16px 0;
+}
+.billing-card {
+background: #fff;
+border: 1px solid #e5e7eb;
+border-radius: 10px;
+padding: 20px;
+}
+.billing-card-title h3 {
+font-size: 18px;
+font-weight: 600;
+color: #111827;
+margin: 0 0 4px;
+}
+.muted { color: #6b7280; font-size: 14px; }
+
+/* Section headers */
+.row-head {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-top: 24px;
+}
+.row-head h4 {
+margin: 0;
+font-size: 16px;
+font-weight: 600;
+color: #111827;
+}
+
+/* Active pill */
+.pill-success {
+display: inline-flex;
+align-items: center;
+padding: 4px 10px;
+border-radius: 9999px;
+background: #ecfdf5;
+border: 1px solid #10b981;
+color: #065f46;
+font-size: 12px;
+font-weight: 600;
+}
+
+/* Current plan */
+.plan-block {
+margin-top: 8px;
+border: 1px solid #e5e7eb;
+border-radius: 10px;
+padding: 12px;
+}
+.plan-name { font-size: 16px; font-weight: 600; color: #111827; }
+.plan-price { font-size: 14px; color: #111827; margin: 2px 0 4px; }
+.plan-features { font-size: 14px; color: #6b7280; }
+
+/* Payment */
+.payment-block {
+margin-top: 8px;
+display: flex;
+align-items: center;
+gap: 10px;
+border: 1px solid #e5e7eb;
+border-radius: 10px;
+padding: 10px 12px;
+}
+.masked { font-weight: 600; color: #111827; }
+.form-icon { font-size: 18px; color: #111827; }
+
+/* Update chip */
+.chip-btn {
+background: #f9fafb;
+border: 1px solid #9ca3af;
+color: #374151;
+font-size: 12px;
+padding: 6px 12px;
+border-radius: 16px;
+cursor: pointer;
+}
+.chip-btn:hover { background: #e5e7eb; }
+
+/* Billing history */
+.history-list { margin-top: 8px; }
+.history-item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+border: 1px solid #e5e7eb;
+border-radius: 10px;
+padding: 10px 12px;
+}
+.history-item + .history-item { margin-top: 8px; }
+.history-title { font-weight: 600; color: #111827; }
+.history-meta { text-align: right; }
+.amount { font-weight: 500; color: #111827; }
+
+/* Footer actions */
+.billing-actions-footer {
+margin-top: 20px;
+display: flex;
+gap: 10px;
+justify-content: flex-start;
+}
+.btn-grey {
+padding: 10px 14px;
+border: none;
+background: #f3f4f6;
+color: #111827;
+border-radius: 6px;
+font-size: 14px;
+cursor: pointer;
+}
+.btn-grey:hover { background: #e5e7eb; }
+.btn-danger {
+padding: 10px 14px;
+border: none;
+background: #ef4444;
+color: #fff;
+border-radius: 6px;
+font-size: 14px;
+cursor: pointer;
+}
+.btn-danger:hover { background: #dc2626; }
+/* ===== Modal Overlay ===== */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0,0,0,0.4);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 50;
+}
+.modal {
+background: #fff;
+border-radius: 10px;
+padding: 20px;
+width: 400px;
+max-width: 90%;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.modal h3 {
+font-size: 18px;
+font-weight: 600;
+margin-bottom: 12px;
+}
+.modal label {
+display: block;
+margin-bottom: 12px;
+font-size: 14px;
+font-weight: 500;
+color: #111827;
+}
+.modal input {
+width: 100%;
+padding: 8px 10px;
+margin-top: 4px;
+border: 1px solid #d1d5db;
+border-radius: 6px;
+font-size: 14px;
+}
+.modal-actions {
+display: flex;
+justify-content: flex-end;
+gap: 10px;
+margin-top: 12px;
+}
