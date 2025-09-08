@@ -1,46 +1,45 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import Topbar from "./components/Topbar";
-import Dashboard from "./components/Dashboard";
-import CreateOrder from "./pages/CreateOrder";
-import Menu from "./pages/Menu";
-import "./App.css";
 
-// Settings imports
-import Settings from "./pages/settings/Settings.jsx";
-import RestaurantTab from "./pages/settings/Restaurant.jsx";
-import AccountTab from "./pages/settings/Account.jsx";
-import NotificationsTab from "./pages/settings/Notifications.jsx";
-import BillingTab from "./pages/settings/Billing.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignIn from "./Pages/SignIn";
+import SignUp from "./Pages/SignUp";
+import ForgotPassword from "./Pages/ForgotPassword";
+import Dashboard from "./Pages/Dashboard";
+import CheckoutPage from "./Pages/CheckoutPage";
+import ProtectedRoute from "./Components/ProtectedRoute";
+// import { CartProvider } from "./Context/CartContext.jsx";
+import { CartProvider } from "./Components/CartProvider";
+import { AuthProvider } from "./Context.jsx/AuthProvider";
 
 function App() {
-return (
-<Router>
-<div className="app-container">
-<Sidebar />
-<div className="main">
-<Topbar />
-<div className="content">
-<Routes>
-{/* Main pages */}
-<Route path="/" element={<Dashboard />} />
-<Route path="/create-order" element={<CreateOrder />} />
-<Route path="/menu" element={<Menu />} />
-
-{/* Settings with nested tabs */}
-<Route path="/settings" element={<Settings />}>
-<Route path="restaurant" element={<RestaurantTab />} />
-<Route path="account" element={<AccountTab />} />
-<Route path="notifications" element={<NotificationsTab />} />
-<Route path="billing" element={<BillingTab />} />
-</Route>
-</Routes>
-</div>
-</div>
-</div>
-</Router>
-);
+    return (
+        <BrowserRouter>
+            <AuthProvider>
+                <CartProvider>
+                    <Routes>
+                        <Route path="/" Component={SignIn} />
+                        <Route path="/signup" Component={SignUp} />
+                        <Route path="/forgot-password" Component={ForgotPassword} />
+                        <Route
+                            path="/dashboard/*"
+                            Component={() => (
+                                <ProtectedRoute>
+                                    <Dashboard />
+                                </ProtectedRoute>
+                            )}
+                        />
+                        <Route
+                            path="/checkout/:orderId"
+                            Component={() => (
+                                <ProtectedRoute>
+                                    <CheckoutPage />
+                                </ProtectedRoute>
+                            )}
+                        />
+                    </Routes>
+                </CartProvider>
+            </AuthProvider>
+        </BrowserRouter>
+    );
 }
 
 export default App;
