@@ -46,9 +46,11 @@ filter === "All" ? orders : orders.filter((o) => o.status === filter);
 
 return (
 <div>
-{filteredOrders.map((order) => (
-<OrderCard key={order.id} order={order} />
-))}
+{filteredOrders.map(
+    (order, i) => (
+        <OrderCard key={i} order={order} />
+    )
+)}
 </div>
 );
 }
