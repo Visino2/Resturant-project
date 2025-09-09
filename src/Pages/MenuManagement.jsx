@@ -8,6 +8,7 @@ export default function MenuManagement() {
   const [activeTab, setActiveTab] = useState("All");
   const [menuItems, setMenuItems] = useState(Cart);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState(null); // for edit
   const [searchTerm, setSearchTerm] = useState("");
 
   const categories = ["All", "Appetizers", "Main Course", "Drinks", "Desserts"];
@@ -27,23 +28,39 @@ export default function MenuManagement() {
   const handleAddItem = (newItem) => {
     setMenuItems((prev) => [...prev, newItem]);
 
-    // 👇 Ensure correct tab stays updated
     if (activeTab !== "All" && activeTab !== newItem.category) {
       setActiveTab("All"); // fallback to "All" so you can see it immediately
     }
   };
 
+  // Handle update item
+  const handleUpdateItem = (updatedItem) => {
+    setMenuItems((prev) =>
+      prev.map((item) => (item.id === updatedItem.id ? updatedItem : item))
+    );
+  };
+
+  // Handle delete item
+  const handleDeleteItem = (id) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      setMenuItems((prev) => prev.filter((item) => item.id !== id));
+    }
+  };
+
   return (
-    <div>
+    <div className="p-5">
       {/* Header */}
-      <div className="flex justify-between items-center mt-30 ">
+      <div className="flex justify-between items-center mt-30">
         <div className="space-y-1">
           <h1 className="text-2xl font-bold">Menu Management</h1>
           <p className="text-gray-600">Add and edit menu items</p>
         </div>
         <button
           type="button"
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setEditingItem(null);
+            setIsModalOpen(true);
+          }}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
         >
           + Menu
@@ -83,7 +100,17 @@ export default function MenuManagement() {
       {/* Menu Items */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredItems.length > 0 ? (
-          filteredItems.map((item) => <MenuCard key={item.id} item={item} />)
+          filteredItems.map((item) => (
+            <MenuCard
+              key={item.id}
+              item={item}
+              onEdit={() => {
+                setEditingItem(item);
+                setIsModalOpen(true);
+              }}
+              onDelete={handleDeleteItem}
+            />
+          ))
         ) : (
           <p className="text-gray-500 text-center col-span-3">No items found</p>
         )}
@@ -94,7 +121,9 @@ export default function MenuManagement() {
         <MenuModal
           onClose={() => setIsModalOpen(false)}
           onAdd={handleAddItem}
-          defaultCategory={activeTab} // 👈 pass current tab to modal
+          onUpdate={handleUpdateItem}
+          editingItem={editingItem}
+          defaultCategory={activeTab}
         />
       )}
     </div>

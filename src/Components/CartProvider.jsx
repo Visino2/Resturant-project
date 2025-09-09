@@ -1,16 +1,12 @@
-
 import { createContext, useContext, useState } from "react";
-import { db } from "../Firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { useAuth } from "../Context.jsx/AuthProvider";
+import { useOrders } from "./OrderProvider";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const { user } = useAuth(); // get logged-in user
   const [cart, setCart] = useState([]);
+  const { addOrder } = useOrders();
 
-  // Add item to cart
   const addToCart = (item) => {
     setCart((prev) => {
       const existing = prev.find((i) => i.id === item.id);
@@ -23,55 +19,48 @@ export function CartProvider({ children }) {
     });
   };
 
-  // Remove item completely
-  const removeFromCart = (id) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  // Update quantity
   const updateQuantity = (id, amount) => {
     setCart((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + amount } : item
+      prev.map((i) =>
+        i.id === id ? { ...i, quantity: Math.max(1, i.quantity + amount) } : i
       )
     );
   };
 
-  // Clear cart
-  const clearCart = () => setCart([]);
+  const removeFromCart = (id) => {
+    setCart((prev) => prev.filter((i) => i.id !== id));
+  };
 
-  // Checkout → save order in Firestore
-  const checkout = async () => {
-    if (!user) {
-      alert("You must be logged in to place an order!");
-      return;
-    }
+  const checkout = () => {
+    if (cart.length === 0) return;
 
-    const order = {
-      userId: user.uid,
-      items: cart,
-      total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
-      createdAt: serverTimestamp(),
+    const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+    const tax = subtotal * 0.0825;
+    const total = subtotal + tax;
+
+    const newOrder = {
+      id: Date.now().toString(),
+      date: new Date().toLocaleString(),
+      items: cart.map((i) => `${i.quantity}× ${i.name}`),
+      itemPrices: cart.map((i) => i.price * i.quantity),
+      subtotal,
+      tax,
+      total,
+      payment: "Card", // 👉 can change later to dynamic
+      status: "Completed",
     };
 
-    try {
-      await addDoc(collection(db, "orders"), order);
-      clearCart();
-      alert("Order placed successfully!");
-    } catch (err) {
-      console.error("Error saving order:", err);
-    }
+    addOrder(newOrder);
+    setCart([]); // clear cart
   };
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, checkout }}
+      value={{ cart, addToCart, updateQuantity, removeFromCart, checkout }}
     >
       {children}
     </CartContext.Provider>
   );
 }
 
-export function useCart() {
-  return useContext(CartContext);
-}
+export const useCart = () => useContext(CartContext);

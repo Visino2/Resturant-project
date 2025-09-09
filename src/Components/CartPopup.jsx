@@ -7,6 +7,11 @@ export default function CartPopup() {
   const tax = subtotal * 0.0825;
   const total = subtotal + tax;
 
+  const handleCheckout = () => {
+    checkout(); // ✅ process checkout
+    alert("✅ Your order has been placed successfully!"); // ✅ show alert
+  };
+
   return (
     <div className="fixed top-0 right-0 w-80 h-full bg-white shadow-lg p-4 border-l border-gray-200 mt-20">
       <h2 className="font-bold text-lg flex justify-between items-center">
@@ -74,7 +79,7 @@ export default function CartPopup() {
           </div>
 
           <button
-            onClick={checkout}
+            onClick={handleCheckout} 
             className="w-full bg-red-500 text-white py-3 rounded mt-4 hover:bg-red-600"
           >
             Proceed to Checkout
