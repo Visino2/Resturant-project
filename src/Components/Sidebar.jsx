@@ -2,15 +2,17 @@ import { useState } from "react";
 import { FaUtensils, FaShoppingCart, FaHistory, FaCog } from "react-icons/fa";
 import MenuManagement from "../Pages/MenuManagement";
 import CreateOrder from "../Pages/CreateOrder";
+import OrderHistory from "./OrderHistory";
+import Settings from "../Pages/settings/Settings";
 
 export default function Sidebar() {
     const [activeItem, setActiveItem] = useState("menu");
 
     return (
-        <div className="flex">
+        <div className="flex w-screen">
             {/* Sidebar */}
             <aside className="w-64 bg-white h-screen shadow-md fixed left-0 top-0 p-6 flex flex-col">
-                
+
                 {/* Logo & Title */}
                 <div className="flex flex-col items-center mb-10">
                     <div className="flex justify-center items-center bg-red-500 rounded-full w-16 h-16">
@@ -43,11 +45,11 @@ export default function Sidebar() {
             </aside>
 
             {/* Main Content Area */}
-            <main className="ml-64 p-6 w-full">
+            <main className="ml-64 w-full">
                 {activeItem === "menu" && <MenuManagement />}
                 {activeItem === "create" && <CreateOrder />}
-                {activeItem === "orders" && <h2 className="text-2xl font-bold">Order History Section</h2>}
-                {activeItem === "settings" && <h2 className="text-2xl font-bold">Settings Section</h2>}
+                {activeItem === "orders" && <OrderHistory />}
+                {activeItem === "settings" && <Settings />}
             </main>
         </div>
     );
